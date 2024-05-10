@@ -49,6 +49,8 @@ class TestView: UIView {
     private func update(viewData: ViewData.Data?, isHidden: Bool) {
         if let imageName = viewData?.icon {
             imageView.image = UIImage(named: imageName)
+        } else {
+            imageView.image = nil
         }
         
         descriptionLabel.text = viewData?.description
