@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class TestView: UIView {
     var viewData: ViewData = .initial {
@@ -25,6 +26,7 @@ class TestView: UIView {
         
         switch viewData {
         case .initial:
+            setupConstraints()
             update(viewData: nil, isHidden: true)
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
@@ -33,11 +35,11 @@ class TestView: UIView {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         case .success(let data):
-            update(viewData: data, isHidden: true)
+            update(viewData: data, isHidden: false)
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
         case .failure(let data):
-            update(viewData: data, isHidden: true)
+            update(viewData: data, isHidden: false)
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
         }
@@ -54,5 +56,32 @@ class TestView: UIView {
         titleLabel.isHidden = isHidden
         descriptionLabel.isHidden = isHidden
         imageView.isHidden = isHidden
+    }
+}
+
+extension TestView {
+    func setupConstraints() {
+        imageView.snp.makeConstraints {
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.width.height.equalTo(80)
+            $0.top.equalToSuperview().offset(8)
+        }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.top.equalTo(imageView.snp.bottom).offset(8)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.top.equalTo(imageView.snp.bottom).offset(32)
+            //$0.leading.equalToSuperview().offset(16)
+        }
+        
+        descriptionLabel.snp.makeConstraints {
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+           // $0.leading.equalToSuperview().offset(16)
+        }
+        
     }
 }

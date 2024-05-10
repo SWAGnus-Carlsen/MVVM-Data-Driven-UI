@@ -22,8 +22,8 @@ final class MainViewModel: MainViewModelProtocol {
     public func startFetch() {
         //start loading.....
         updateViewData?(.loading(ViewData.Data(icon: nil, 
-                                               description: nil,
-                                               title: nil,
+                                               description: "Please wait a sec",
+                                               title: "Loading",
                                                phoneNumber: nil)))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
